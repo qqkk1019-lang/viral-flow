@@ -1,3 +1,7 @@
+param(
+  [switch]$SkipVoice
+)
+
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -22,9 +26,15 @@ if ($missing.Count -gt 0) {
 $output = Join-Path $root 'output'
 New-Item -ItemType Directory -Force -Path $output | Out-Null
 
-Write-Host '[1/3] 產生中文配音...'
-& (Join-Path $root 'TTS.ps1')
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+if ($SkipVoice) {
+  if (-not (Test-Path (Join-Path $output 'narration.wav'))) {
+    Stop-WithMessage '測試模式找不到 output\\narration.wav。'
+  }
+} else {
+  Write-Host '[1/3] 產生中文配音...'
+  & (Join-Path $root 'TTS.ps1')
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
 
 Write-Host '[2/3] 建立分鏡清單...'
 $images = Get-ChildItem (Join-Path $root 'images') -Filter 'S*.jpg' | Sort-Object Name
