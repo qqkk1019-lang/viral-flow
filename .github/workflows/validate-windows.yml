@@ -18,14 +18,14 @@ jobs:
         continue-on-error: true
         shell: powershell
         run: |
-          .\windows_video_factory\TEST_WINDOWS.ps1 *>&1 | Tee-Object -FilePath windows_video_factory\validation.log
+          .\windows_video_factory\TEST_WINDOWS.ps1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Upload diagnostic log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-validation-log
-          path: windows_video_factory/validation.log
+          path: windows_video_factory/output/validation.log
           if-no-files-found: warn
       - name: Mark failed validation
         if: steps.validation.outcome != 'success'
