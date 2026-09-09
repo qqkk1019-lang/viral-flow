@@ -1,3 +1,4 @@
+# Windows CI verification entry point.
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
