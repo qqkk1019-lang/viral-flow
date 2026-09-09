@@ -40,11 +40,12 @@ Write-Host '[2/3] 建立分鏡清單...'
 $images = Get-ChildItem (Join-Path $root 'images') -Filter 'S*.jpg' | Sort-Object Name
 $concatLines = [System.Collections.Generic.List[string]]::new()
 foreach ($image in $images) {
-  $safePath = $image.FullName.Replace('\\', '/')
+  $safePath = $image.FullName.Replace('\', '/').Replace(':', '\:')
   $concatLines.Add("file '$safePath'")
   $concatLines.Add('duration 8')
 }
-$concatLines.Add("file '" + $images[-1].FullName.Replace('\\', '/') + "'")
+$lastPath = $images[-1].FullName.Replace('\', '/').Replace(':', '\:')
+$concatLines.Add("file '$lastPath'")
 $concatFile = Join-Path $output 'images.txt'
 [System.IO.File]::WriteAllLines($concatFile, $concatLines, [System.Text.UTF8Encoding]::new($false))
 
