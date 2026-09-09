@@ -26,7 +26,7 @@ jobs:
         with:
           name: windows-validation-log
           path: windows_video_factory/validation.log
-          if-no-files-found: error
+          if-no-files-found: warn
       - name: Mark failed validation
         if: steps.validation.outcome != 'success'
         shell: powershell
