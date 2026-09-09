@@ -1,0 +1,18 @@
+name: Validate Windows Video Factory
+
+on:
+  push:
+    paths:
+      - 'windows_video_factory/**'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: choco install ffmpeg -y --no-progress
+      - name: Build test MP4 on Windows PowerShell
+        shell: powershell
+        run: .\windows_video_factory\TEST_WINDOWS.ps1
