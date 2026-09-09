@@ -10,10 +10,12 @@ if errorlevel 1 (
   exit /b 1
 )
 
-if not exist "images\S01.jpg" (
-  echo [錯誤] 請先將 S01.jpg～S08.jpg 放進 images 資料夾。
-  pause
-  exit /b 1
+for %%N in (01 02 03 04 05 06 07 08) do (
+  if not exist "images\S%%N.jpg" (
+    echo [錯誤] 缺少 images\S%%N.jpg，請備齊 S01.jpg～S08.jpg。
+    pause
+    exit /b 1
+  )
 )
 
 if not exist output mkdir output
