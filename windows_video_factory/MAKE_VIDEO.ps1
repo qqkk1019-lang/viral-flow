@@ -8,8 +8,7 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
 
 function Stop-WithMessage([string]$message) {
-  Write-Host "[錯誤] $message" -ForegroundColor Red
-  exit 1
+  throw $message
 }
 
 if ($null -eq (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
