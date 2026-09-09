@@ -1,4 +1,4 @@
-# Windows CI verification entry point. Logs are captured by the workflow. Revision 2.
+# Windows CI verification entry point. Logs are captured by the workflow. Revision 3.
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
