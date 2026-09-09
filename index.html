@@ -17,7 +17,7 @@
     <label>影片風格</label><div class="row" id="style"><button class="choice on" data-value="懸疑反轉">懸疑反轉</button><button class="choice" data-value="知識科普">知識科普</button><button class="choice" data-value="職場共鳴">職場共鳴</button></div>
     <button class="go" id="make">一鍵產出剪映短影音包</button>
   </section>
-  <section class="box result" id="result"><div class="step"><b class="n">2</b><span>複製下方內容，貼到剪映的「圖文生片」即可。</span></div><div class="tip">這個工具負責把想法整理成可用指令；影片會由剪映生成，因此不需要安裝或設定任何程式。</div><div class="output" id="output"></div><div class="actions"><button id="copy" class="primary">複製完整指令</button><button id="save">下載文字檔</button></div><div class="toast" id="toast"></div></section>
+  <section class="box result" id="result"><div class="step"><b class="n">2</b><span>複製下方內容，貼到剪映的「圖文生片」即可。</span></div><div class="tip">這個工具負責把想法整理成可用指令；影片會由剪映生成，因此不需要安裝或設定任何程式。</div><div class="output" id="output"></div><div class="actions"><button id="copy" class="primary">複製完整指令</button></div><div class="toast" id="toast"></div></section>
 </main>
 <script>
   let seconds=45,style='懸疑反轉';
@@ -28,5 +28,4 @@
 return `請製作一支 ${seconds} 秒、9:16 直式、台灣國語口吻的短影音。\n\n【主題】\n${topic}\n\n【風格】\n${style}；節奏明快、寫實電影感、字幕清楚、不要英文口說。\n\n【前 3 秒爆點】\n${hook}\n\n【口白結構】\n1. 先用生活化問題引發好奇。\n2. 用白話說明真正關鍵，避免艱深術語。\n3. 用一個畫面對比呈現「原來如此」的反轉。\n4. 以一句容易記住的金句收尾。\n\n【分鏡】\n01｜強烈現場畫面＋問題字卡（0–3 秒）\n02｜主角或關鍵細節近景（3–12 秒）\n03｜用簡單動畫／對比解釋原因（12–30 秒）\n04｜證據或改善前後的反轉畫面（30–${seconds-8} 秒）\n05｜結論金句＋留言提問（最後 8 秒）\n\n【結尾 CTA】\n你對這件事的第一個想法是什麼？留言告訴我。\n\n【畫面規則】\n台灣真實場景、人物與服裝前後一致、畫面不要內建字幕或浮水印、保留後製字幕空間。`;}
   document.getElementById('make').onclick=()=>{const topic=document.getElementById('topic').value.trim();if(!topic){document.getElementById('topic').focus();return}document.getElementById('output').textContent=packageText(topic);document.getElementById('result').classList.add('show');document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'})};
   document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText(text())}catch(e){const t=document.createElement('textarea');t.value=text();document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}document.getElementById('toast').textContent='已複製，現在開啟剪映並貼上即可。'};
-  document.getElementById('save').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text()],{type:'text/plain;charset=utf-8'}));a.download='剪映短影音指令包.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
 </script></body></html>
